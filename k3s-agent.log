@@ -1,0 +1,57 @@
+time="2024-07-19T10:30:55Z" level=info msg="Acquiring lock file /var/lib/rancher/k3s/data/.lock"
+time="2024-07-19T10:30:55Z" level=info msg="Preparing data dir /var/lib/rancher/k3s/data/c38ba7cc166
+9e7d80b8156ae743932fd86f5bce3871b8a88bef531dd4e3c02b2"
+time="2024-07-19T10:31:04Z" level=info msg="Starting k3s agent v1.29.6+k3s2 (b4b156d9)"
+time="2024-07-19T10:31:04Z" level=info msg="Adding server to load balancer k3s-agent-load-balancer: 
+192.168.56.110:6443"
+time="2024-07-19T10:31:04Z" level=info msg="Running load balancer k3s-agent-load-balancer 127.0.0.1:
+6444 -> [192.168.56.110:6443] [default: 192.168.56.110:6443]"
+time="2024-07-19T10:31:06Z" level=warning msg="Cluster CA certificate is not trusted by the host CA 
+bundle, but the token does not include a CA hash. Use the full token from the server's node-token fi
+le to enable Cluster CA validation."
+time="2024-07-19T10:31:13Z" level=info msg="Module overlay was already loaded"
+time="2024-07-19T10:31:14Z" level=info msg="Set sysctl 'net/ipv4/conf/all/forwarding' to 1"
+time="2024-07-19T10:31:14Z" level=info msg="Set sysctl 'net/netfilter/nf_conntrack_max' to 131072"
+time="2024-07-19T10:31:14Z" level=info msg="Set sysctl 'net/netfilter/nf_conntrack_tcp_timeout_estab
+lished' to 86400"
+time="2024-07-19T10:31:14Z" level=info msg="Set sysctl 'net/netfilter/nf_conntrack_tcp_timeout_close
+_wait' to 3600"
+time="2024-07-19T10:31:14Z" level=info msg="Logging containerd to /var/lib/rancher/k3s/agent/contain
+erd/containerd.log"
+time="2024-07-19T10:31:14Z" level=info msg="Running containerd -c /var/lib/rancher/k3s/agent/etc/con
+tainerd/config.toml -a /run/k3s/containerd/containerd.sock --state /run/k3s/containerd --root /var/l
+ib/rancher/k3s/agent/containerd"
+time="2024-07-19T10:31:15Z" level=info msg="containerd is now running"
+time="2024-07-19T10:31:15Z" level=info msg="Getting list of apiserver endpoints from server"
+time="2024-07-19T10:31:16Z" level=info msg="Updated load balancer k3s-agent-load-balancer default se
+rver address -> 10.0.2.15:6443"
+time="2024-07-19T10:31:16Z" level=info msg="Adding server to load balancer k3s-agent-load-balancer: 
+10.0.2.15:6443"
+time="2024-07-19T10:31:16Z" level=info msg="Removing server from load balancer k3s-agent-load-balanc
+er: 192.168.56.110:6443"
+time="2024-07-19T10:31:16Z" level=info msg="Closing 2 connections to load balancer server 192.168.56
+.110:6443"
+time="2024-07-19T10:31:16Z" level=info msg="Updated load balancer k3s-agent-load-balancer server add
+resses -> [10.0.2.15:6443] [default: 10.0.2.15:6443]"
+time="2024-07-19T10:31:16Z" level=info msg="Creating k3s-cert-monitor event broadcaster"
+time="2024-07-19T10:31:16Z" level=info msg="Running kubelet --address=0.0.0.0 --allowed-unsafe-sysct
+ls=net.ipv4.ip_forward,net.ipv6.conf.all.forwarding --anonymous-auth=false --authentication-token-we
+bhook=true --authorization-mode=Webhook --cgroup-driver=cgroupfs --client-ca-file=/var/lib/rancher/k
+3s/agent/client-ca.crt --cloud-provider=external --cluster-dns=10.43.0.10 --cluster-domain=cluster.l
+ocal --container-runtime-endpoint=unix:///run/k3s/containerd/containerd.sock --containerd=/run/k3s/c
+ontainerd/containerd.sock --eviction-hard=imagefs.available<5%,nodefs.available<5% --eviction-minimu
+m-reclaim=imagefs.available=10%,nodefs.available=10% --fail-swap-on=false --feature-gates=CloudDualS
+tackNodeIPs=true --healthz-bind-address=127.0.0.1 --hostname-override=jpilletsw --kubeconfig=/var/li
+b/rancher/k3s/agent/kubelet.kubeconfig --node-ip=10.0.2.15 --node-labels= --pod-infra-container-imag
+e=rancher/mirrored-pause:3.6 --pod-manifest-path=/var/lib/rancher/k3s/agent/pod-manifests --read-onl
+y-port=0 --resolv-conf=/etc/resolv.conf --serialize-image-pulls=false --tls-cert-file=/var/lib/ranch
+er/k3s/agent/serving-kubelet.crt --tls-private-key-file=/var/lib/rancher/k3s/agent/serving-kubelet.k
+ey"
+time="2024-07-19T10:31:16Z" level=info msg="Connecting to proxy" url="wss://10.0.2.15:6443/v1-k3s/co
+nnect"
+time="2024-07-19T10:31:16Z" level=error msg="Failed to connect to proxy. Empty dialer response" erro
+r="dial tcp 10.0.2.15:6443: connect: connection refused"
+time="2024-07-19T10:31:16Z" level=error msg="Remotedialer proxy error; reconnecting..." error="dial 
+tcp 10.0.2.15:6443: connect: connection refused" url="wss://10.0.2.15:6443/v1-k3s/connect"
+time="2024-07-19T10:31:16Z" level=info msg="Waiting to retrieve kube-proxy configuration; server is 
+not ready: failed to get CA certs: Get \"https://127.0.0.1:6444/cacerts\": read tcp 127.0.0.1:5354
