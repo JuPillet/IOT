@@ -11,6 +11,11 @@ SCRIPT_SSH_KEY		= <<-SHELL
 	rm -rf /home/vagrant/id_rsa.pub
 SHELL
 
+SCRIPT_ALIAS		= <<-SHELL
+	echo "ajout de 'k' pour l'alias de kubectl"
+	echo "alias k='kubectl'" >> /home/vagrant/.bashrc
+SHELL
+
 NAME_CONTROLLER		= "jpilletS"
 IP_CONTROLLER		= "192.168.56.110"
 SCRIPT_CONTROLLER	= <<-SHELL
@@ -35,6 +40,7 @@ Vagrant.configure("2") do |config|
 	# Configuration commune clef SSH
 	config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "/home/vagrant/id_rsa.pub"
 	config.vm.provision "shell", inline: SCRIPT_SSH_KEY
+	config.vm.provision "shell", inline: SCRIPT_ALIAS
 
 	config.vm.define "jpilletS" do |jpilletS|
 		jpilletS.vm.hostname	= NAME_CONTROLLER

@@ -1,24 +1,167 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: configmap-IOT-p2
+  name: app-one
   labels:
-    app.kubernetes.io.name: configmap-IOT-p2
-spec:  
+    app: app-one
+spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: myapp
+      app: app-one
   template:
     metadata:
       labels:
-        app: myapp
+        app: app-one
     spec:
       containers:
-      - name: myapp
-        image: <Image>
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-        - containerPort: <Port>
+        - name: app-one
+          image: nginx:1.14.2
+          ports:
+          - containerPort: 80
+          volumeMounts:
+            - name: app-one-volume
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: app-one-volume
+          configMap:
+            name: app-one-html
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-one
+spec:
+  selector:
+    app: app-one
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  clusterIP: 10.43.171.213
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-two
+  labels:
+    app: app-two
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-two
+  template:
+    metadata:
+      labels:
+        app: app-two
+    spec:
+      containers:
+        - name: app-two
+          image: nginx:1.14.2
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: app-two-volume
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: app-two-volume
+          configMap:
+            name: app-two-html
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-two
+spec:
+  selector:
+    app: app-two
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  clusterIP: 10.43.193.160
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-three
+  labels:
+    app: app-three
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-three
+  template:
+    metadata:
+      labels:
+        app: app-three
+    spec:
+      containers:
+        - name: app-three
+          image: nginx:1.14.2
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: app-three-volume
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: app-three-volume
+          configMap:
+            name: app-three-html
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-three
+spec:
+  selector:
+    app: app-three
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  clusterIP: 10.43.229.156
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+spec:
+  rules:
+  - host: app1.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-one
+            port:
+              number: 80
+  - host: app2.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-two
+            port:
+              number: 80
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-three
+            port:
+              number: 80
