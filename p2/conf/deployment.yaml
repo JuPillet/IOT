@@ -15,17 +15,17 @@ spec:
         app: app-one
     spec:
       containers:
-        - name: app-one
-          image: nginx:1.14.2
-          ports:
-          - containerPort: 80
-          volumeMounts:
-            - name: app-one-volume
-              mountPath: /usr/share/nginx/html
-      volumes:
+      - name: app-one
+        image: nginx:1.25.5
+        ports:
+        - containerPort: 80
+        volumeMounts:
         - name: app-one-volume
-          configMap:
-            name: app-one-html
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: app-one-volume
+        configMap:
+          name: app-one-html
 ---
 apiVersion: v1
 kind: Service
@@ -35,9 +35,9 @@ spec:
   selector:
     app: app-one
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
+  - protocol: TCP
+    port: 80
+    targetPort: 80
   clusterIP: 10.43.171.213
 
 ---
@@ -59,17 +59,17 @@ spec:
         app: app-two
     spec:
       containers:
-        - name: app-two
-          image: nginx:1.14.2
-          ports:
-            - containerPort: 80
-          volumeMounts:
-            - name: app-two-volume
-              mountPath: /usr/share/nginx/html
-      volumes:
+      - name: app-two
+        image: nginx:1.25.5
+        ports:
+        - containerPort: 80
+        volumeMounts:
         - name: app-two-volume
-          configMap:
-            name: app-two-html
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: app-two-volume
+        configMap:
+          name: app-two-html
 ---
 apiVersion: v1
 kind: Service
@@ -103,13 +103,13 @@ spec:
         app: app-three
     spec:
       containers:
-        - name: app-three
-          image: nginx:1.14.2
-          ports:
-            - containerPort: 80
-          volumeMounts:
-            - name: app-three-volume
-              mountPath: /usr/share/nginx/html
+      - name: app-three
+        image: nginx:1.25.5
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: app-three-volume
+          mountPath: /usr/share/nginx/html
       volumes:
         - name: app-three-volume
           configMap:
@@ -123,9 +123,9 @@ spec:
   selector:
     app: app-three
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
+  - protocol: TCP
+    port: 80
+    targetPort: 80
   clusterIP: 10.43.229.156
 
 ---
@@ -133,7 +133,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: app-ingress
+  name: apps-ingress
 spec:
   rules:
   - host: app1.com
